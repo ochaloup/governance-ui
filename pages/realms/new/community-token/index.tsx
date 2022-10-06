@@ -86,6 +86,9 @@ export default function CommunityTokenWizard() {
 
       const programIdAddress =
         formData?.programId || DEFAULT_GOVERNANCE_PROGRAM_ID
+      console.log(
+        `community token: using program id address: ${programIdAddress}`
+      )
 
       const results = await createTokenizedRealm({
         wallet,

@@ -60,6 +60,7 @@ export default function MultiSigWizard() {
 
       const programIdAddress =
         formData?.programId || DEFAULT_GOVERNANCE_PROGRAM_ID
+      console.log(`multisig: using program id address: ${programIdAddress}`)
 
       const results = await createMultisigWallet({
         wallet,

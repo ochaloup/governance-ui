@@ -69,6 +69,7 @@ export default function NFTWizard() {
 
       const programIdAddress =
         formData?.programId || DEFAULT_GOVERNANCE_PROGRAM_ID
+      console.log(`nft: using program id address: ${programIdAddress}`)
 
       const results = await createNFTRealm({
         wallet,
