@@ -32,6 +32,7 @@ import {
   LockupKind,
   lockupTypes,
   MONTHLY,
+  DAILY,
   CONSTANT,
   Period,
   VestingPeriod,
@@ -100,7 +101,7 @@ const LockTokensModal = ({
   ].filter((x) =>
     depositToUnlock
       ? getMinDurationInDays(depositToUnlock) <= x.defaultValue ||
-        x.display === 'Custom'
+      x.display === 'Custom'
       : true
   )
 
@@ -144,19 +145,19 @@ const LockTokensModal = ({
   const currentPrecision = precision(mintMinAmount)
   const maxAmountToUnlock = depositToUnlock
     ? getMintDecimalAmount(
-        depositToUnlock.mint.account,
-        depositToUnlock?.amountInitiallyLockedNative
-      )
+      depositToUnlock.mint.account,
+      depositToUnlock?.amountInitiallyLockedNative
+    )
     : 0
   const maxAmountToLock =
     depositRecord && mint
       ? wantToLockMoreThenDeposited
         ? getMintDecimalAmount(
-            mint,
-            depositRecord?.amountDepositedNative.add(
-              new BN(realmTokenAccount!.account.amount)
-            )
+          mint,
+          depositRecord?.amountDepositedNative.add(
+            new BN(realmTokenAccount!.account.amount)
           )
+        )
         : getMintDecimalAmount(mint, depositRecord?.amountDepositedNative)
       : 0
   const maxAmount = depositToUnlock ? maxAmountToUnlock : maxAmountToLock
@@ -164,18 +165,18 @@ const LockTokensModal = ({
     depositRecord && mint
       ? wantToLockMoreThenDeposited
         ? fmtMintAmount(
-            mint,
-            depositRecord?.amountDepositedNative.add(
-              new BN(realmTokenAccount!.account.amount)
-            )
+          mint,
+          depositRecord?.amountDepositedNative.add(
+            new BN(realmTokenAccount!.account.amount)
           )
+        )
         : fmtMintAmount(mint, depositRecord?.amountDepositedNative)
       : 0
   const maxAmountToUnlockFmt = depositToUnlock
     ? fmtMintAmount(
-        depositToUnlock.mint.account,
-        depositToUnlock?.amountInitiallyLockedNative
-      )
+      depositToUnlock.mint.account,
+      depositToUnlock?.amountInitiallyLockedNative
+    )
     : 0
   const maxAmountFmt = depositToUnlock
     ? maxAmountToUnlockFmt
@@ -352,12 +353,12 @@ const LockTokensModal = ({
                       setLockupType(
                         //@ts-ignore
                         lockupTypes
-                          .filter((x) => x.value !== MONTHLY)
+                          .filter((x) => x.value !== MONTHLY && x.value !== DAILY)
                           .find((t) => t.displayName === type)
                       )
                     }
                     values={lockupTypes
-                      .filter((x) => x.value !== MONTHLY)
+                      .filter((x) => x.value !== MONTHLY && x.value !== DAILY)
                       .map((type) => type.displayName)}
                   />
                 </div>
@@ -428,7 +429,7 @@ const LockTokensModal = ({
                 </>
               )}
 
-              {lockupType.value === MONTHLY && (
+              {(lockupType.value === MONTHLY || lockupType.value === DAILY) && (
                 <div className="mb-4">
                   <div className="flex justify-between mb-1">
                     <p>Vesting Period</p>
@@ -482,11 +483,10 @@ const LockTokensModal = ({
               <div className="w-full h-2 bg-bkg-1 rounded-lg mb-4">
                 <div
                   style={{
-                    width: `${
-                      currentPercentOfMaxMultiplier > 100
-                        ? 100
-                        : currentPercentOfMaxMultiplier
-                    }%`,
+                    width: `${currentPercentOfMaxMultiplier > 100
+                      ? 100
+                      : currentPercentOfMaxMultiplier
+                      }%`,
                   }}
                   className="bg-primary-light h-2 rounded-lg"
                 ></div>

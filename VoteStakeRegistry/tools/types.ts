@@ -15,6 +15,7 @@ export interface VestingPeriod {
   info: string
 }
 export const MONTHLY = 'monthly'
+export const DAILY = 'daily'
 export const CONSTANT = 'constant'
 export const lockupTypes: LockupKind[] = [
   {
@@ -38,6 +39,15 @@ export const lockupTypes: LockupKind[] = [
   {
     value: MONTHLY,
     displayName: 'Vested',
+    info: [
+      'Tokens are locked for a fixed duration and released over time at a rate of (locked amount / number of periods) per vesting period.',
+      'Vote weight declines linearly and with each vesting until release.',
+      'Example: You lock 12.000 tokens for one year with monthly vesting. Every month 1.000 tokens unlock. After the year, all tokens have unlocked.',
+    ],
+  },
+  {
+    value: DAILY,
+    displayName: 'VestedDaily',
     info: [
       'Tokens are locked for a fixed duration and released over time at a rate of (locked amount / number of periods) per vesting period.',
       'Vote weight declines linearly and with each vesting until release.',
