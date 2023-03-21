@@ -400,7 +400,8 @@ export async function getMintInstruction({
       TOKEN_PROGRAM_ID,
       form.mintAccount.governance.account.governedAccount,
       receiverAddress,
-      form.mintAccount.governance!.pubkey,
+      // form.mintAccount.governance!.pubkey,
+      form.mintAccount.account.mintAuthority,
       [],
       mintAmount
     )
