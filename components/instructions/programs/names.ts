@@ -23,6 +23,7 @@ export const GOVERNANCE_PROGRAM_NAMES = {
   smfjietFKFJ4Sbw1cqESBTpPhF4CwbMwN8kBEC1e5ui:
     'Strangemood Foundation Governance Program',
   GovHgfDPyQ1GwazJTDY2avSVY8GGcpmCapmmCsymRaGe: 'PSY DO Governance Program',
+  Marinade: 'Marinade Governance Program',
   '7e75Nwsz8i5i4NiDa43CNzKJ4AeQGyRimha46VKTM1Ls': 'spl-governance v3 test',
   MGovW65tDhMMcpEmsegpsdgvzb6zUwGsNjhXFxRAnjd: 'MEAN DAO Governance Program',
   GovMaiHfpVPw8BAM1mbdzgmSZYDw2tdP32J2fapoQoYs: 'Marinade Governance Program',
