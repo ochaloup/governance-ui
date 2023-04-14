@@ -2,7 +2,7 @@ import Input from '@components/inputs/Input'
 import Select from '@components/inputs/Select'
 import TokenAmountInput from '@components/inputs/TokenAmountInput'
 import { useMintInfoByPubkeyQuery } from '@hooks/queries/mintInfo'
-import useGovernanceForGovernedAddress from '@hooks/useGovernanceForGovernedAddress'
+import useGovernanceForGovernedAddress, { useNativeTreasuryForGovernedAddress } from '@hooks/useGovernanceForGovernedAddress'
 import useProgramVersion from '@hooks/useProgramVersion'
 import useRealm from '@hooks/useRealm'
 import {
@@ -94,6 +94,7 @@ const RevokeGoverningTokens: FC<{
 
   const { data: mintInfo } = useMintInfoByPubkeyQuery(selectedMint)
   const governance = useGovernanceForGovernedAddress(selectedMint)
+  const mintAuthority = useNativeTreasuryForGovernedAddress(selectedMint)
 
   const getInstruction = useCallback(async (): Promise<UiInstruction> => {
     const errors: Errors = {}
@@ -132,7 +133,8 @@ const RevokeGoverningTokens: FC<{
       realm === undefined ||
       programId === undefined ||
       mintInfo?.result === undefined ||
-      governance === undefined
+      governance === undefined ||
+      mintAuthority === undefined
     ) {
       throw new Error('proposal created before necessary data is fetched')
     }
@@ -142,7 +144,7 @@ const RevokeGoverningTokens: FC<{
       realm.pubkey,
       member,
       selectedMint,
-      governance.pubkey,
+      mintAuthority,
       getMintNaturalAmountFromDecimalAsBN(
         parseFloat(form.amount),
         mintInfo.result.decimals
